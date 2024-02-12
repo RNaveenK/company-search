@@ -28,13 +28,15 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-        // Function to fetch and parse the JSON file
-        function fetchCompanies() {
-            return $.getJSON("companies.json");
-        }
+        // Sample data of companies with their career page links
+        const companies = [
+            { name: "Google", link: "https://careers.google.com/" },
+            { name: "Microsoft", link: "https://careers.microsoft.com/" },
+            // Add more companies here
+        ];
 
         // Function to render the list of companies
-        function renderCompanyList(companies) {
+        function renderCompanyList() {
             $(".company-list").empty();
             const searchTerm = $("#searchInput").val().toLowerCase();
             companies.forEach(company => {
@@ -45,15 +47,13 @@
             });
         }
 
-        // Call fetchCompanies and renderCompanyList on page load
+        // Call renderCompanyList on page load
         $(document).ready(function() {
-            fetchCompanies().then(function(companies) {
-                renderCompanyList(companies);
+            renderCompanyList();
 
-                // Handle search input
-                $("#searchInput").on("input", function() {
-                    renderCompanyList(companies);
-                });
+            // Handle search input
+            $("#searchInput").on("input", function() {
+                renderCompanyList();
             });
         });
     </script>
