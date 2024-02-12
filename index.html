@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .company-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .company-list li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Company Search</h1>
+        <div class="form-group">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search...">
+        </div>
+        <ul class="company-list">
+            <!-- Your list of companies will be dynamically generated here -->
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        // Function to fetch and parse the JSON file
+        function fetchCompanies() {
+            return $.getJSON("companies.json");
+        }
+
+        // Function to render the list of companies
+        function renderCompanyList(companies) {
+            $(".company-list").empty();
+            const searchTerm = $("#searchInput").val().toLowerCase();
+            companies.forEach(company => {
+                if (company.name.toLowerCase().includes(searchTerm)) {
+                    const listItem = `<li><a href="${company.link}" target="_blank">${company.name}</a></li>`;
+                    $(".company-list").append(listItem);
+                }
+            });
+        }
+
+        // Call fetchCompanies and renderCompanyList on page load
+        $(document).ready(function() {
+            fetchCompanies().then(function(companies) {
+                renderCompanyList(companies);
+
+                // Handle search input
+                $("#searchInput").on("input", function() {
+                    renderCompanyList(companies);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
