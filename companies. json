@@ -1,0 +1,5 @@
+[
+  { "name": "Google", "link": "https://careers.google.com/" },
+  { "name": "Microsoft", "link": "https://careers.microsoft.com/" }
+  // Add more companies here
+]
